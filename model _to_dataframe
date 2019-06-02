@@ -1,0 +1,3 @@
+ from django_pandas.io import read_frame
+ qs = Contravention.objects.all()
+ df_contraventions = read_frame(qs)
