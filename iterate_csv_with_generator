@@ -1,0 +1,20 @@
+import csv
+from pcndodger.suspensions.models import Borough,PostCode,PostCodeToRoad
+def get_email_data(csv_fname):
+  with open(csv_fname, "r", encoding="latin-1") as email_records:
+    for email_record in csv.reader(email_records):
+      yield email_record
+
+
+filename = "postcodes.txt"
+iter_email = iter(get_email_data(filename))
+next(iter_email)  # Skipping the column names
+
+for row in iter_email:
+    
+    borough,created =  Borough.objects.get_or_create(value=row[2].title())
+    #print(borough)
+    road,created = Road.objects.get_or_create(value=row[1].title(),borough=borough)
+    #print(road)
+    postcode,created = PostCode.objects.get_or_create(value=row[0],borough=borough)
+    postcodetoroad,created = PostCodeToRoad.objects.get_or_create(road=road,postcode=postcode)
