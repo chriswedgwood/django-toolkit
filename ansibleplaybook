@@ -1,0 +1,1 @@
+ansible-playbook ./production/deploy.yml --private-key=~/.ssh/id_rsa -K -u deployer -i ./production/hosts -vvv
